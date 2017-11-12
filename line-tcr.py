@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import time,random,sys,json,codecs,threading,glob,re,datetime,urllib2,pickle
 
 cl = LINETCR.LINE()
-cl.login(qr=True)
+cl.login(token="EmwGdmD1ppP6ElBUjIxa.apGNZMzba418M2CeQxD9/G.vP7+IsxNFz1kycqkCJ/y1Qyck9a9pN8woxmkKkUGD4o=")
 cl.loginResult()
 
 kk = LINETCR.LINE()
@@ -24,8 +24,8 @@ Amid = cl.getProfile().mid
 
 wait = {
     'contact':False,
-    'autoJoin':True,
-    'autoCancel':{"on":True,"members":0},
+    'autoJoin':False,
+    'autoCancel':{"on":True,"members":1},
     'leaveRoom':True,
     'timeline':True,
     'autoAdd':False,
@@ -36,12 +36,12 @@ wait = {
     "commentBlack":{},
     "wblack":False,
     "dblack":False,
-    "clock":True,
-    "cName":"",
+    "clock":False,
+    "cName":"Phet ",
     "blacklist":{},
     "wblacklist":False,
     "dblacklist":False,
-    "protectionOn":True,
+    "protectionOn":False,
     "atjointicket":False,
     "alwayRead":False
     }
@@ -89,7 +89,7 @@ def time_converter(time):
 
 
 def url_builder(city_id):
-    user_api = '211c77f3a8739b420fc2e039a8d94a4d'  # Obtain yours form: http://openweathermap.org/
+    user_api = 'u00f827ce6641038d7c9b6704a9777dfa'  # Obtain yours form: http://openweathermap.org/
     unit = 'metric'  # For Fahrenheit use imperial, for Celsius use metric, and the default is Kelvin.
     api = 'http://api.openweathermap.org/data/2.5/weather?id='     # Search for your city ID here: http://bulk.openweathermap.org/sample/city.list.json.gz
 
@@ -261,11 +261,11 @@ def user1script(op):
                         else:
                             u = "เปิด"
                         cl.sendText(msg.to,"ชื่อกลุ่ม: " + str(ginfo.name) + "\n\nผู้สร้าง: " + gCreator + "\nรหัสกลุ่ม (gid): " + msg.to + "\nรูปกลุ่ม:\nhttp://dl.profile.line.naver.jp/" + ginfo.pictureStatus + "\n\nสมาชิก: " + str(len(ginfo.members)) + " ท่าน\nค้างเชิญ: " + sinvitee + " ท่าน\nURL: " + u)
-                elif msg.text.lower() == ".speed":
+                elif msg.text.lower() == "#sp":
                     start = time.time()
-                    cl.sendText(msg.to,"กำลังทดสอบ..")
+                    cl.sendText(msg.to,"Progress.....")
                     elapsed_time = time.time() - start
-                    cl.sendText(msg.to, "%s วินาที" % (elapsed_time))
+                    cl.sendText(msg.to, "%s seconds" % (elapsed_time))
                     # cl.sendText(msg.to,"0.000000000000 วินาที")
                 elif ".say " in msg.text.lower():
                     red = re.compile(re.escape('.say '),re.IGNORECASE)
@@ -291,7 +291,7 @@ def user1script(op):
                         cl.cancelGroupInvitation(msg.to,gMembMids)
                 elif msg.text.lower() == ".id":
                     cl.sendText(msg.to,msg.to)
-                elif msg.text.lower() == ".mentionall":
+                elif msg.text.lower() == "phet@":
                     group = cl.getGroup(msg.to)
                     nama = [contact.mid for contact in group.members]
                     cb = ""
@@ -320,7 +320,7 @@ def user1script(op):
                 elif msg.text.lower() == ".alwayread off":
                     wait['alwayRead'] = False
                     cl.sendText(msg.to,"ปิดโหมดอ่านอัตโนมัติแล้ว")
-                elif msg.text.lower() == ".tyfelogin":
+                elif msg.text.lower() == "bot2":
                     if TyfeLogged == False:
                         kk.login(qr=True)
                         kk.loginResult()
@@ -329,7 +329,7 @@ def user1script(op):
                         cl.sendText(msg.to,"ล็อคอินสำเร็จ Tyfe พร้อมใช้งานแล้ว")
                     else:
                         cl.sendText(msg.to,"Tyfe ได้ทำการล็อคอินไปแล้ว")
-                elif msg.text.lower() == ".":
+                elif msg.text.lower() == "ginfoall":
                     gs = []
                     try:
                         gs = cl.getGroup(msg.to).members
@@ -353,7 +353,7 @@ def user1script(op):
                     msg.text = None
                     msg.contentMetadata = {'mid': msg.to+"',"}
                     cl.sendMessage(msg)
-                elif msg.text.lower() == ".help":
+                elif msg.text.lower() == "#help":
                     cl.sendText(msg.to,"คำสั่งทั้งหมด (พิมพ์ . ตามด้วยคำสั่ง):\n\n- help\n- tyfelogin\n- me\n- id\n- groupinfo\n- invitecancel\n- gift\n- mentionall\n- crash\n- alwayread [on/off]\n- speed\n- say [ข้อความ] [จำนวน]\n\n**คำสั่งสำหรับบัญชีนี้เท่านั้น")
             except Exception as error:
                 print error
@@ -447,8 +447,8 @@ lmimic = ""
 kickLockList = open("prevkick.dat","r").read().split('\n')
 
 tadmin = {
-    "u192b20ffe99430786818ecc7aa53ed88":["cdb7564fd64f7a62d8ceac1cc5bbe9a71"],
-    "u62f3dcacb34d699e30b327f087803f5c":["c9d7efb03ee3c0b5c45f80129a737ee63"]
+    "u00f827ce6641038d7c9b6704a9777dfa":["cdb7564fd64f7a62d8ceac1cc5bbe9a71"],
+    "u87edbf0f175fe8cc555d625f7e47d148":["c9d7efb03ee3c0b5c45f80129a737ee63"]
 }
 
 def user2script(op):
@@ -603,21 +603,21 @@ def user2script(op):
                     kk.sendText(msg.from_,run(bf))
                 else:
                     kk.sendText(msg.to,run(bf))
-            elif msg.text.lower() == "tyfe:mimic on":
+            elif msg.text.lower() == "mimic on":
                 if msg.from_ == user1:
                     mimic["status"] = True
-                    kk.sendText(msg.to,"เริ่มการล้อเลียน")
+                    kk.sendText(msg.to,"Done.")
                 else:
                     kk.sendText(msg.to,"คุณไม่มีสิทธิ์ใช้คำสั่งนี้")
-            elif msg.text.lower() == "tyfe:mimic off":
+            elif msg.text.lower() == "mimic off":
                 if msg.from_ == user1:
                     mimic["status"] = False
-                    kk.sendText(msg.to,"ยกเลิกการล้อเลียน")
+                    kk.sendText(msg.to,"Done.")
                 else:
                     kk.sendText(msg.to,"คุณไม่มีสิทธิ์ใช้คำสั่งนี้")
-            elif "tyfe:mimic " in msg.text.lower():
+            elif "phet mic " in msg.text.lower():
                 if msg.from_ in user1:
-                    red = re.compile(re.escape('tyfe:mimic '),re.IGNORECASE)
+                    red = re.compile(re.escape('phet mic '),re.IGNORECASE)
                     target0 = red.sub('',msg.text)
                     target1 = target0.lstrip()
                     target2 = target1.replace("@","")
@@ -641,13 +641,13 @@ def user2script(op):
                                     del mimic["target"][lmimic]
                                 lmimic = target
                                 mimic["target"][target] = True
-                                kk.sendText(msg.to,"สำเร็จแล้ว")
+                                kk.sendText(msg.to,"Done.")
                             except Exception as error:
                                 print error
                                 kk.sendText(msg.to,"ข้อผิดพลาดที่ไม่รู้จัก")
                 else:
                     kk.sendText(msg.to,"คุณไม่มีสิทธิ์ใช้คำสั่งนี้")
-            elif msg.text.lower() == "tyfe:mentionall":
+            elif msg.text.lower() == "bot@":
                 group = kk.getGroup(msg.to)
                 nama = [contact.mid for contact in group.members]
                 cb = ""
@@ -879,7 +879,7 @@ def nameUpdate():
                 nowM = int(nowM)
                 hr = int(nowT)
                 cloud = cloudupdate(data_organizer(data_fetch(url_builder(1153670))))
-                profile = cl.getProfile()
+                profile = kk.getProfile()
                 if hr >= 22:
                     if nowM == 59:
                         if nowT == 23:
@@ -977,7 +977,7 @@ def nameUpdate():
                             profile.statusMessage = "(0"+str(nowT)+":0"+str(int(nowM)+1)+") "+cloud
                         else:
                             profile.statusMessage = "(0"+str(nowT)+":"+str(int(nowM)+1)+") "+cloud
-                cl.updateProfile(profile)
+                kk.updateProfile(profile)
             time.sleep(120)
         except:
             pass
